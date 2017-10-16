@@ -1,2 +1,4 @@
-# Bouncing-Ball-game
-Bouncing Ball game
+# Bricks!
+
+Bricks written in javascript.
+
