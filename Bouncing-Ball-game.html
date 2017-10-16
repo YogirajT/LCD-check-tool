@@ -30,7 +30,7 @@
                 clearInterval(startDraw);
                 }
                 else{
-                    //draing a circle
+                    //drawing a circle
                     context.clearRect(0,0, 500,350);
                     context.beginPath();
                     context.moveTo(a,300);
@@ -45,25 +45,25 @@
                     if( x<0 || x>500) dx=-dx; 
                     if( y<0 || y>350) dy=-dy;
 
-                    //brick margin conditions
+                    //reflector margin conditions
                     if( y==300 && x>=a && x<=a+150 )dy=-dy;
                     x+=dx;
                     y+=dy;
 
+                    //brick handling
                     for(i=0; i<offset.length; i++){
-                            //fill
+                            //brick margin condition
                             if( x>offset[i][0] && x<brick[0]+offset[i][0] && y==offset[i][1] ) {dy=-dy; offset.splice(i, 1);} ;
                             if( x>offset[i][0] && x<brick[0]+offset[i][0] && y==offset[i][1]+brick[1] ) {dy=-dy; offset.splice(i, 1);};
                             if( x==offset[i][0] && y>offset[i][1] && y<offset[i][1]+brick[1]) {dx=-dx; offset.splice(i, 1);};
                             if( x==offset[i][0]+brick[0] && y>offset[i][1] && y<offset[i][1]+brick[1] ) {dx=-dx; offset.splice(i, 1);};
+                            //draw brick
                             context.fillStyle="#ff0000";
                             context.rect(offset[i][0],offset[i][1],brick[0],brick[1]);
                             context.stroke();
                             context.closePath();
                             context.fill();
                     };
-
-
                 };
             };
         };
