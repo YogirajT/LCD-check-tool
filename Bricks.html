@@ -10,27 +10,37 @@
         }
     </style>
 </head>
-<body onload="init();">
+<body>
     <canvas id="myCanvas" width="500" height="350" border="" style="border:solid"></canvas>
     <div id="hello"></div>
     <div id="world"></div>
-    <button id="btn" onClick="history.go(0)" >Restart</button>
+    <button id="btn1" onClick="init()" >Start</button>
+    <button id="btn2" onClick="history.go(0)" >Reset</button>
     <script>
         var context;
-        var x=200;
-        var y=200;
-        var dx=-5;
-        var dy=-5;
-        var a=150;
+        var x=250;
+        var y=295;
+        var dx=5;
+        var dy=5;
+        var a=170;
         var da=30;
         var brick = [75,25];
         var offset = [[100,100],[175,125],[250,100],[175,75],[325,125],[325,75]];
-        
+        context = myCanvas.getContext('2d');
+
+        context.beginPath();
+        context.fillStyle="#000000";
+        context.fillRect(a,300,150,10);
+
+        context.beginPath();
+        context.fillStyle="#ff0000";
+        context.arc(x,y,5,0,Math.PI*2,true);
+        context.stroke();
+        context.fill();
 
         function init()
         {
-            context= myCanvas.getContext('2d');
-            var startDraw = setInterval(draw,10);
+            var startDraw = setInterval(draw,20);
             function draw()
             {
                 if (y > 400 || offset.length == 0) {
@@ -46,7 +56,7 @@
                     //draw circle
                     context.beginPath();
                     context.fillStyle="#ff0000";
-                    context.arc(x,y,10,0,Math.PI*2,true);
+                    context.arc(x,y,5,0,Math.PI*2,true);
                     context.stroke();
                     context.fill();
 
@@ -62,17 +72,23 @@
 
                     context.fillStyle="#00ff00";
                     for(i=0; i<offset.length; i++){
-                            //fill
+                    //brick margin conditions
+                            //upper
                             if( x>offset[i][0] && x<brick[0]+offset[i][0] && y==offset[i][1] ) {dy=-dy; offset.splice(i, 1);} ;
+                            //lower
                             if( x>offset[i][0] && x<brick[0]+offset[i][0] && y==offset[i][1]+brick[1] ) {dy=-dy; offset.splice(i, 1);};
+                            //left
                             if( x==offset[i][0] && y>offset[i][1] && y<offset[i][1]+brick[1]) {dx=-dx; offset.splice(i, 1);};
+                            //right
                             if( x==offset[i][0]+brick[0] && y>offset[i][1] && y<offset[i][1]+brick[1] ) {dx=-dx; offset.splice(i, 1);};
+                    //draw rectangle
                             context.fillRect(offset[i][0],offset[i][1],brick[0],brick[1]);
                     };
                 };
             };
         };
-
+        
+        //arrow keys
         document.onkeydown = function(e) {
                 switch (e.keyCode) {
                 case 37:
