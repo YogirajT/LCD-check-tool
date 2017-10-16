@@ -60,15 +60,14 @@
                     x+=dx;
                     y+=dy;
 
+                    context.fillStyle="#00ff00";
                     for(i=0; i<offset.length; i++){
                             //fill
                             if( x>offset[i][0] && x<brick[0]+offset[i][0] && y==offset[i][1] ) {dy=-dy; offset.splice(i, 1);} ;
                             if( x>offset[i][0] && x<brick[0]+offset[i][0] && y==offset[i][1]+brick[1] ) {dy=-dy; offset.splice(i, 1);};
                             if( x==offset[i][0] && y>offset[i][1] && y<offset[i][1]+brick[1]) {dx=-dx; offset.splice(i, 1);};
                             if( x==offset[i][0]+brick[0] && y>offset[i][1] && y<offset[i][1]+brick[1] ) {dx=-dx; offset.splice(i, 1);};
-                            context.rect(offset[i][0],offset[i][1],brick[0],brick[1]);
-                            context.stroke();
-                            context.fill();
+                            context.fillRect(offset[i][0],offset[i][1],brick[0],brick[1]);
                     };
                 };
             };
