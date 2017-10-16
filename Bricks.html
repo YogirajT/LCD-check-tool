@@ -2,12 +2,19 @@
 <head lang="en">
     <title>Ball game</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <style>
+        canvas, button, div{
+            margin:auto;
+            display: block;
+            text-align: center;
+        }
+    </style>
 </head>
 <body onload="init();">
     <canvas id="myCanvas" width="500" height="350" border="" style="border:solid"></canvas>
-    <button></button>
     <div id="hello"></div>
     <div id="world"></div>
+    <button id="btn" onClick="history.go(0)" >Restart</button>
     <script>
         var context;
         var x=200;
@@ -36,9 +43,12 @@
                     context.moveTo(a,300);
                     context.lineTo(a+150, 300);
                     context.stroke();
+                    
+                    //draw
                     context.beginPath();
                     context.arc(x,y,10,0,Math.PI*2,true);
                     context.closePath();
+                    context.stroke();
 
                     //canvas margin conditions
                     document.getElementById("hello").innerHTML = "pos x: "+x+" pos a: "+a+" number of bricks: "+offset.length;
