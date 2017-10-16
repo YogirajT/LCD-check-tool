@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head lang="en">
+    <title>Ball game</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <script>
+        var context;
+        var x=100;
+        var y=200;
+        var dx=5;
+        var dy=5;
+        var a=150;
+        var da=30;
+
+        function init()
+        {
+            context= myCanvas.getContext('2d');
+            var begin = setInterval(draw,10);
+        };
+
+        function draw()
+        {
+            context.clearRect(0,0, 500,350);
+
+            context.beginPath();
+            context.moveTo(a,300);
+            context.lineTo(a+150, 300);
+            context.stroke();
+
+            context.beginPath();
+            context.fillStyle="#00ff00";
+            context.arc(x,y,20,0,Math.PI*2,true);
+            context.closePath();
+            context.fill();
+            document.getElementById("hello").innerHTML = "pos x: "+x+" pos a: "+a ;
+
+            if( x<0 || x>500) dx=-dx; 
+            if( y<0 ) dy=-dy;
+            if( y==300 && x>=a && x<=a+150 )dy=-dy;
+            if( y>400 ) clearInterval(begin);
+            x+=dx;
+            y+=dy;
+        };
+
+        document.onkeydown = function(e) {
+                switch (e.keyCode) {
+                case 37:
+                a = a - da;
+                break;
+                case 39:
+                a = a + da;
+                break;
+                }
+        };
+    </script>
+</head>
+<body onLoad="init();">
+    <canvas id="myCanvas" width="500" height="350" border="" style="border:solid"></canvas>
+    <div id="hello"></div>
+    <div id="world"></div>
+</body>
