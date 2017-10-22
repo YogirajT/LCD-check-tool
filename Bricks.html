@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <head lang="en">
     <title>Ball game</title>
@@ -18,12 +19,19 @@
     <button id="btn2" onClick="history.go(0)" >Reset</button>
     <script>
         var context;
+        //ball
         var x=250;
         var y=295;
         var dx=5;
         var dy=5;
+        //reflector
         var a=170;
-        var da=30;
+        var da=0;
+        var spd = 6;
+        var fm = 0.97;
+        var step = 12;
+
+        //initial drawing
         var brick = [75,25];
         var offset = [[100,100],[175,125],[250,100],[175,75],[325,125],[325,75]];
         context = myCanvas.getContext('2d');
@@ -47,8 +55,17 @@
                 clearInterval(startDraw);
                 }
                 else{
-                    //draw deflector
-                    context.clearRect(0,0, 500,350);
+                    //calculating 'a'
+                    da *= fm;
+                    a += da;
+                    // if (a >= 350) {
+                    //     a = 350;
+                    // }
+                    // if (a <= 0) {
+                    //     a = 0;
+                    // }
+                    //draw reflector
+                    context.clearRect(0,0,500,350);
                     context.beginPath();
                     context.fillStyle="#000000";
                     context.fillRect(a,300,150,10);
@@ -81,7 +98,7 @@
                             if( x==offset[i][0] && y>offset[i][1] && y<offset[i][1]+brick[1]) {dx=-dx; offset.splice(i, 1);};
                             //right
                             if( x==offset[i][0]+brick[0] && y>offset[i][1] && y<offset[i][1]+brick[1] ) {dx=-dx; offset.splice(i, 1);};
-                    //draw rectangle
+                    //draw bricks
                             context.fillRect(offset[i][0],offset[i][1],brick[0],brick[1]);
                     };
                 };
@@ -90,12 +107,16 @@
         
         //arrow keys
         document.onkeydown = function(e) {
-                switch (e.keyCode) {
+            switch (e.keyCode) {
                 case 37:
-                a = a - da;
+                if(da > -spd) {
+                    da=da-step;
+                }
                 break;
                 case 39:
-                a = a + da;
+                if(da < spd) {
+                    da=da+step;
+                }
                 break;
             }
         };
