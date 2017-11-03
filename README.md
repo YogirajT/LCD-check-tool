@@ -1,4 +1,4 @@
-# Bricks!
+# LCD Check tool
 
-Bricks written in javascript.
+LCD Check tool concept created in MS excel.
 
